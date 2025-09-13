@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* space between login form & register button */
+    height: 100%; /* allow stretching */
+    min-height: 400px; /* keep it tall enough */
+}
+
+.register-wrapper {
+    display: flex;
+    justify-content: flex-end; /* push button to right */
+    margin-top: auto; /* stick to bottom */
+}
+
+
+button.back {
+    background: #f8f9fa;
+    color: #007bff;
+    border: 1px solid #007bff;
+    font-weight: 500;
+}
+
+button.back:hover {
+    background: #007bff;
+    color: white;
+}
+
+.error {
+    color: red;           /* Makes the text red */
+    text-align: center;   /* Centers the text horizontally */
+    margin-top: 10px;     /* Optional: adds some space above the message */
+    font-weight: bold;    /* Optional: makes it stand out more */
+}

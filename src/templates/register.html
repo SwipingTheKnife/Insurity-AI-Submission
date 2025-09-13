@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register User</title>
+    <link rel="stylesheet" href="/static/css/global.css">
+    <link rel="stylesheet" href="/static/css/register.css">
+</head>
+<body>
+     <div class="container">
+        <h1>Welcome</h1>
+
+        <h2>Register</h2>
+        <form id="register-form" action="/register" method="post">
+            <input type="text" name="username" placeholder="Enter username" required>
+            <input type="password" name="password" placeholder="Enter password" required>
+            <button type="submit">Register</button>
+        </form>
+          <div class="register-wrapper">
+             <form action="/" method="get">
+                <button class = "back">Back to Login</button>
+             </form>
+         </div>
+     </div>
+</body>
+</html>
