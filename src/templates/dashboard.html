@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/global.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+    <div class="mainDiv">
+        <div  class="container">
+            <h2>Recent Trips</h2>
+           <div class="RecentTrips">
+                <p>Hello</p>
+            </div>
+        </div>
+        <div class="container">
+            <h2>Diving Score</h2>
+            <div class="score">
+                <div class="chartBox">
+                    <canvas id="scoreGauge"></canvas>
+                </div>
+            </div>
+            <h2>Discount</h2>
+            <div class="discount">
+                <div class="chartBox">
+                    <canvas id="discountGauge"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h2>Premium</h2>
+            <div class="premium">
+                <p>Hello</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/Javascript/dashboardGauge.js"></script>
+</body>
+</html>

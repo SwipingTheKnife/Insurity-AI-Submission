@@ -65,4 +65,4 @@ def login(username: str = Form(...), password: str = Form(...), db: Session = De
     if not pwd_context.verify(password, user.password_hash):
         return templates.TemplateResponse("index.html", {"request": {}, "error": "Invalid username or password"})
 
-    return templates.TemplateResponse("index.html", {"request": {}, "error": "Successfully Logged In"})
+    return templates.TemplateResponse("dashboard.html", {"request": {}, "title": "Dashboard"})
