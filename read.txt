@@ -1,0 +1,25 @@
+Backend: FastAPI
+, SQLAlchemy, JWT Auth
+
+Frontend: Jinja2 templates, Chart.js (gauges), custom CSS/JS
+
+ML Model: Scikit-learn RandomForestClassifier wrapped in DiscountModel
+
+Database: PostgreSQL hosted on google cloud
+
+Github:
+git clone https://github.com/yourusername/telematics-insurance.git
+
+cd telematics-insurance
+
+
+RUN: uvicorn main:app --reload
+
+
+Evaluation:
+
+Driving Score = scaled from predicted discount
+
+Discount = % discount between discount_min (0) and discount_max (20)
+
+Premium = base premium ($800) × (1 - discount%)
