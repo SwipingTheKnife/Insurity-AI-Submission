@@ -72,7 +72,8 @@ def dashboard(request: Request, current_user: User = Depends(get_current_user), 
 
         trip_data["predicted_discount"] = discount_model.predict_discount(trip_data).flatten()
 
-        trip_data["driving_score"] = 100 - trip_data["predicted_discount"]
+
+        trip_data["driving_score"] = (trip_data["predicted_discount"]) * 5
 
         avg_driving_score = trip_data["driving_score"].mean()
         avg_discount = trip_data["predicted_discount"].mean()
@@ -113,22 +114,51 @@ async def upload_trips(trips_list: List[TripInput],
     if not trips_list:
         raise HTTPException(status_code=400, detail="Empty JSON list")
 
-    # Convert to DataFrame
-    trip_df = pd.DataFrame([trip.dict() for trip in trips_list])
-
-    # Optional: add driver_id column
-    trip_df['driver_id'] = current_user.user_id
-
     # Insert into database
-    for _, row in trip_df.iterrows():
-        trip = Trips(**row.to_dict())  # Create an ORM object
-        db.add(trip)  # Add to session
+    for trip_input in trips_list:
+        trip_data = trip_input.dict()
+        trip_data["driver_id"] = int(current_user.user_id)
+        trip = Trips(**trip_data)
+        db.add(trip)
 
     db.commit()
 
+    all_trips = db.query(Trips).filter(Trips.driver_id == current_user.user_id).all()
+
+    all_trip_df = pd.DataFrame([{
+        "start_lat": t.start_lat,
+        "start_lon": t.start_lon,
+        "end_lat": t.end_lat,
+        "end_lon": t.end_lon,
+        "distance_miles": t.distance_miles,
+        "duration": t.duration,
+        "avg_speed": t.avg_speed,
+        "max_speed": t.max_speed,
+        "hard_brakes": t.hard_brakes,
+        "time_of_day": t.time_of_day,
+        "weather": t.weather
+    } for t in all_trips])
+
+
+
     # Predict discount
     discount_model = DiscountModel.load("models/discount_model.pkl")
-    discounts = discount_model.predict_discount(trip_df).flatten()
-    avg_discount = discounts.mean()
+    discounts = discount_model.predict_discount(all_trip_df).flatten()
+    avg_discount = float(discounts.mean())
 
-    return {"avg_discount": avg_discount}
+    avg_driving_score = (
+            (avg_discount - discount_model.discount_min) /
+            (discount_model.discount_max - discount_model.discount_min) * 100
+    )
+
+    return {"avg_discount": avg_discount,
+            "avg_driving_score": avg_driving_score,
+            "new_trips": [
+                {
+                    "distance_miles": trip.distance_miles,
+                    "duration": trip.duration,
+                    "weather": trip.weather
+                }
+                for trip in trips_list
+            ],
+            }

@@ -9,7 +9,8 @@ class DiscountModel:
 
     def predict_discount(self, trip_df):
         raw_proba = self.pipeline.predict_proba(trip_df)[:, 1]  # 0 to 1
-        discount = self.discount_min + raw_proba * (self.discount_max - self.discount_min)
+        safe_score = 1 - raw_proba
+        discount = self.discount_min + safe_score * (self.discount_max - self.discount_min)
         discount = discount.reshape(-1, 1)
         return discount
 

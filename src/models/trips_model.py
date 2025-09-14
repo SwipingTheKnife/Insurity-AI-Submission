@@ -6,7 +6,7 @@ class Trips(Base):
     __tablename__ = "trips"
 
     trip_id = Column(Integer, primary_key=True, index=True)
-    driver_id = Column(String(50), nullable=False)
+    driver_id = Column(Integer, nullable=False)
     start_time = Column(TIMESTAMP, nullable=False)
     end_time = Column(TIMESTAMP, nullable=False)
     start_lat = Column(Float, nullable=False)
