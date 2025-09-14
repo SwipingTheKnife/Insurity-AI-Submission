@@ -1,13 +1,12 @@
 # predict.py
 # This script loads the trained discount model and predicts discounts for new trips
-from discount_model import DiscountModel
+from models.discount_model import DiscountModel
 import pandas as pd
-import joblib
 
 # ----------------------------
 # Step 1: Load trained model
 # ----------------------------
-discount_model = DiscountModel.load("discount_model.pkl")
+discount_model = DiscountModel.load("../models/discount_model.pkl")
 
 
 # ----------------------------

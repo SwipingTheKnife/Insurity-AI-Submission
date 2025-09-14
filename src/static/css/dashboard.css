@@ -16,6 +16,63 @@
     height: 75%
 }
 
+.RecentTrips p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: #333; /* dark gray instead of black */
+    background-color: #f9f9f9; /* subtle background */
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-radius: 12px; /* rounded edges */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* subtle shadow */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* hover effect */
+}
+
+.RecentTrips p:hover {
+    transform: translateY(-2px); /* slight lift on hover */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: #eef7ff; /* subtle color change */
+}
+
+/* Optional: make the section scrollable if too many trips */
+.RecentTrips {
+    max-height: 400px; /* adjust as needed */
+    overflow-y: auto;
+    padding-right: 10px; /* to avoid scrollbar overlap */
+}
+
+.chartBox {
+    height: 250px;           /* fixed height */
+    width: 250px;            /* fixed width */
+    display: flex;
+    flex-direction: column;  /* stack canvas + value */
+    justify-content: center; /* vertical center */
+    align-items: center;     /* horizontal center */
+    position: relative;
+    margin: 0 auto;          /* center container on page if needed */
+}
+
+.chartBox canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.premium {
+    justify-content: center;
+    text-align: center;
+}
+#premiumValue{
+    color: #155724;
+}
+
+.gauge-value {
+    margin-top: -50px;       /* move text closer to the chart center */
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4B90C2;
+    text-align: center;
+}
+
 
 .mainDiv{
     display: flex;

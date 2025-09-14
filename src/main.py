@@ -1,17 +1,15 @@
-from urllib import request
-
-from fastapi import FastAPI, Depends,  Form, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.security import OAuth2PasswordBearer
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from passlib.context import CryptContext
-from sqlalchemy.orm import Session
 
 import os
 
-from src.db_conn import engine, SessionLocal
-from src.models.user_model import Base, User
-from src.routers import userRoute
+from src.routers import userRoute, dashboardRoute
+
+
+
 
 app = FastAPI()
 
@@ -26,6 +24,7 @@ app.mount(
 )
 
 app.include_router(userRoute.router)
+app.include_router(dashboardRoute.router)
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "title": "Login"})

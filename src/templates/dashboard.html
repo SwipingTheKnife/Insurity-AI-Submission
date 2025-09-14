@@ -11,27 +11,39 @@
         <div  class="container">
             <h2>Recent Trips</h2>
            <div class="RecentTrips">
-                <p>Hello</p>
+                {% for trip in trips %}
+                <p>Trip {{ loop.index }}: {{ trip.distance_miles|round }} miles, {{ trip.duration|round }} minutes, {{ trip.weather }}</p>
+                {% else %}
+                <p>No trips found.</p>
+                {% endfor %}
             </div>
+            <form id="uploadForm">
+                <input type="file" id="jsonFile" accept=".json">
+                <button type="submit">Upload Trips (Just for POC)</button>
+            </form>
         </div>
-        <div class="container">
+        <div class="container" id="scoreGaugeContainer"  data-avg-score="{{ avg_driving_score }}" data-avg-discount="{{ avg_discount }}" >
             <h2>Diving Score</h2>
             <div class="score">
-                <div class="chartBox">
+                <div class="chartBox" style="height: 250px; width: 250px;">
                     <canvas id="scoreGauge"></canvas>
+                    <div id="scoreValue" class="gauge-value"></div>
                 </div>
             </div>
             <h2>Discount</h2>
             <div class="discount">
-                <div class="chartBox">
+                <div class="chartBox"style="height: 250px; width: 250px;">
                     <canvas id="discountGauge"></canvas>
+                    <div id="discountValue" class="gauge-value"></div>
                 </div>
             </div>
         </div>
         <div class="container">
             <h2>Premium</h2>
             <div class="premium">
-                <p>Hello</p>
+                <h3>Base Premium: $800</h3>
+                <h3>Your Discounted Premium:</h3>
+                <h3 id="premiumValue">$800</h3>
             </div>
         </div>
     </div>
